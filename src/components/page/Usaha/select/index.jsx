@@ -21,8 +21,7 @@ function Index() {
                         <Select />
                     </div>
                 </div>
-            </div>
-            <Cart />
+            </div>            
         </div>
 
     )

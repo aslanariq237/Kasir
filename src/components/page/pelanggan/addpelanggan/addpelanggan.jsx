@@ -1,23 +1,69 @@
-import { React, useState } from "react";
+import React from "react";
 import Image from './../../../../assets/react.svg'
+import Swal from 'sweetalert2'
+import axios from "axios";
+import { postGan } from "../../../../url";
 
 const AddPelanggan = () => {
-    const [namaPelanggan, setNamaPelanggan] = useState([]);
-    const [NomorPelanggan, setNomorPelanggan] = useState([]);
+    const [rowSelect, setRowSelect] = React.useState()
 
+    const addGan = async(e) => {
+        e.preventDefault()
+        await axios.post(postGan, {
+            nama : rowSelect.nama,
+            notelp: rowSelect.notelp,
+            email : rowSelect.email
+        })
+        .then(function () {
+            Swal.fire({
+                icon: 'success',
+                title: 'Sukses Menambahkan Pelanggan',
+                showConfirmButton: false,
+                timer: 1500
+            })
+        })
+        .catch((message) => {
+            Swal.fire({
+                icon: 'error',
+                title: message.response.data.message,
+                showConfirmButton: false,
+                timer: 1600
+            })
+        })
+    }
+
+    const handleChange = (e) => {
+        setRowSelect({
+            ...rowSelect,
+            [e.target.name] : e.target.value,
+        })
+    } 
     return (
         <div className="content">
             <div className="title">
                 <p className="text-center my-3">Isi pelanggan dibawah ini</p>
             </div>
-            <form action="">
+            <form action="" onSubmit={addGan}>
                 <div className="nama-produk">
                     <p className="text-sm text-gray-600">Nama Pelanggan</p>
-                    <input type="text" name="namaProduk" id="namaProduk" placeholder="Masukkan Nama Pelangan" className="py-1 px-2 shadow-md rounded-md w-full my-2" />
+                    <input type="text" name="nama" id="namaProduk" placeholder="Masukkan Nama Pelangan" className="py-1 px-2 shadow-md rounded-md w-full my-2" 
+                    value={rowSelect && rowSelect.nama ? rowSelect.nama : ''}
+                    onChange={handleChange}
+                    />
+                </div>
+                <div className="nama-produk">
+                    <p className="text-sm text-gray-600">Nama Pelanggan</p>
+                    <input type="text" name="email" id="namaProduk" placeholder="Masukkan Nama Pelangan" className="py-1 px-2 shadow-md rounded-md w-full my-2" 
+                    value={rowSelect && rowSelect.email ? rowSelect.email : ''}
+                    onChange={handleChange}
+                    />
                 </div>
                 <div className="harga-produk">
-                    <p className="text-sm text-gray-600">Nomor Pelanggan</p>
-                    <input type="number" name="hargaProduk" id="hargaProduk" placeholder="Masukkan Nomor Pelanggan" className="py-1 px-2 shadow-md rounded-md w-full my-2" />
+                    <p className="text-sm text-gray-600">stok Produk</p>
+                    <input type="number" name="notelp" id="hargaProduk" placeholder="Masukkan stok Produk" className="py-1 px-2 shadow-md rounded-md w-full my-2" 
+                    value={rowSelect && rowSelect.notelp ? rowSelect.notelp : ''}
+                    onChange={handleChange}
+                    />                    
                 </div>
                 <div className="sub">
                     <button type="submit" className="w-full bg-green-500 rounded-md py-1 my-2">Submit</button>
