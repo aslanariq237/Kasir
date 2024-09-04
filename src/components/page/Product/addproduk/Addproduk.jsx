@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import Image from './../../../../assets/react.svg'
-import Swal from 'sweetalert2'
+// import Swal from 'sweetalert2'
 import axios from "axios"
 import { postItems } from "../../../../url"
 import "./index.css"
@@ -19,20 +19,22 @@ const AddProduk = () => {
             stok: rowSelect.stok
         })
         .then(function () {
-            Swal.fire({
-                icon: 'success',
-                title: 'Sukses Menambahkan Produk',
-                showConfirmButton: false,
-                timer: 1500
-            })
+            console.log("Data Berhasil Terkirim")
+            // Swal.fire({
+            //     icon: 'success',
+            //     title: 'Sukses Menambahkan Produk',
+            //     showConfirmButton: false,
+            //     timer: 1500
+            // })
         })
         .catch((message) => {
-            Swal.fire({
-                icon: 'error',
-                title: message.response.data.message,
-                showConfirmButton: false,
-                timer: 1600
-            })
+            console.log("Data Berhasil Terkirim")
+            // Swal.fire({
+            //     icon: 'error',
+            //     title: message.response.data.message,
+            //     showConfirmButton: false,
+            //     timer: 1600
+            // })
         })
     }
 

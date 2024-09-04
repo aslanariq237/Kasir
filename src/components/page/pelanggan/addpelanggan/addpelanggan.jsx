@@ -1,6 +1,6 @@
 import React from "react";
 import Image from './../../../../assets/react.svg'
-import Swal from 'sweetalert2'
+// import Swal from 'sweetalert2'
 import axios from "axios";
 import { postGan } from "../../../../url";
 
@@ -15,20 +15,22 @@ const AddPelanggan = () => {
             email : rowSelect.email
         })
         .then(function () {
-            Swal.fire({
-                icon: 'success',
-                title: 'Sukses Menambahkan Pelanggan',
-                showConfirmButton: false,
-                timer: 1500
-            })
+            console.log('Data Berhasil Terkirim')
+            // Swal.fire({
+            //     icon: 'success',
+            //     title: 'Sukses Menambahkan Pelanggan',
+            //     showConfirmButton: false,
+            //     timer: 1500
+            // })
         })
         .catch((message) => {
-            Swal.fire({
-                icon: 'error',
-                title: message.response.data.message,
-                showConfirmButton: false,
-                timer: 1600
-            })
+            console.log('Data Berhasil Terkirim')
+            // Swal.fire({
+            //     icon: 'error',
+            //     title: message.response.data.message,
+            //     showConfirmButton: false,
+            //     timer: 1600
+            // })
         })
     }
 
