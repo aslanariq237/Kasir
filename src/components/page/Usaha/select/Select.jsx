@@ -1,11 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
 import { CartContext } from "../cart/CartContext";
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
 import axios from "axios";
-import { product } from "../../../../url";
+import { postCart, product } from "../../../../url";
 
 const Select = () => {
     const [item, setItem] = useState([]);
-    const [cart, setCart] = useState([]);
+    const [rowSelect, setRowSelect] = useState([])
 
     const getItems = async () => {
         const itemData = axios.get(product)
@@ -15,29 +17,40 @@ const Select = () => {
                 setItem(data)
             })
     }
-    const addCart = (item) => {
-        const updatedCart = [...cart, item];
-        setCart(updatedCart);
-        localStorage.setItem('cart', JSON.stringify(updatedCart));
+    const addCart = async (e) => {
+        e.preventDefault()
+        await axios.post(postCart, {
+            id_product: rowSelect._id,
+            qty: rowSelect.qty
+        })
+            .then(function () {
+                console.log('Berhasil Menambahkan Data')
+            }).catch((e) => console.log(e))
+        // const updatedCart = [...cart, item];
+        // setCart(updatedCart);
+        // localStorage.setItem('cart', JSON.stringify(updatedCart));
     }
 
-    const getCart = () => {
-        const storedCart = JSON.parse(localStorage.getItem('cart')) || [];
-        console.log(storedCart)
-        setCart(storedCart);     
+    const handleChange = (e) => {
+        setRowSelect({
+            ...rowSelect,
+            [e.target.name]: e.target.value
+        })
     }
 
-    const clearCart = () => {
-        const clear = localStorage.clear();
-        setCart(clear)
-    }
-    
+    // const getCart = () => {
+    //     const storedCart = JSON.parse(localStorage.getItem('cart')) || [];
+    //     setCart(storedCart);
+    // }
 
+    // const clearCart = () => {
+    //     const clear = localStorage.clear();
+    //     setCart(clear)
+    // }
 
     useEffect(() => {
         getItems();
-        getCart();
-    }, [1])
+    }, [])
 
     return (
         <div className="">
@@ -60,31 +73,46 @@ const Select = () => {
                                     <p>{li.stok}</p>
                                 </div>
                                 <div className="card-footer">
-                                    <button
-                                        className="bg-green-400 rounded-lg p-1 w-full"
-                                        value={li.id}
-                                        onClick={() => addCart(li)}
-                                    >Tambah</button>
+                                    <Popup trigger={
+                                        <button
+                                            className="bg-green-400 rounded-lg p-1 w-full"
+                                        >Tambah</button>
+                                    } modal>
+                                        <div className="cart">
+                                            <p className="text-sm">apakah anda ingin Menambahkan barang ini?</p>
+                                            <div className="card mt-2">
+                                                <div className="card-body flex justify-between items-center">
+                                                    <form action="">
+                                                        <p className="text-xs">{li.nama}</p>
+                                                        <input
+                                                            type="hidden"
+                                                            name="_id"                                                            
+                                                            value={rowSelect && rowSelect._id ? rowSelect._id : li._id}
+                                                            onChange={handleChange}
+                                                        />
+                                                        <input
+                                                            className="h-8 w-20 border-1 border-black"
+                                                            name="qty"
+                                                            type="number"
+                                                            inputMode="numeric"
+                                                            value={rowSelect && rowSelect.qty ? rowSelect.qty : ''}
+                                                            onChange={handleChange}
+                                                        />
+                                                        <button type="submit">Submit</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </Popup>
                                 </div>
                             </div>
                         ))
                     }
                 </div>
             </div>
-            {
-                cart.length === 0
-                    ?
-                    ''
-                    :
-                    <div className="coba fixed w-5 h-5 rounded-full bg-green-400">
-                        <p>{cart.length}</p>
-                    </div>
-                    // cart.map((li, i) => (
-                    //     <div className="coba fixed bottom-1 bg-green-300" key={i}>
-                    //         <p>{li.length}</p>
-                    //     </div>
-                    // ))                    
-            }
+            <button className="fixed bottom-1 bg-blue-400 w-80 px-5 rounded-md">
+                <p>Lihat Cart</p>
+            </button>
         </div>
     )
 }

@@ -9,3 +9,4 @@ export const pelanggan = url+"getGan"
 export const postItems= url+"postItems"
 export const postCart = url+"postCarts"
 export const postGan = url+"postGan"
+    
