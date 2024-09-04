@@ -5,44 +5,36 @@ import Home from "./../../../assets/home.jpg"
 
 const Carousel = () => {
     return (
-        <div className="content flex justify-around items-center border-t-2 pt-3">
-            <Link to={'/'}>
-                <div className="card">
-                    <div className="card-header w-9 h-9 rounded-full">
-                        <img src={Kelola} alt="" className="flex justify-centerust" />
-                    </div>
-                    <div className="card-footer flex justify-center">
+        <div className="pt-2 px-3 lg:border-r-2">
+            <div className="category flex justify-around lg:flex lg:flex-col lg:justify-between lg:h-[50vh]">
+                <Link to={'/'}>
+                    <div className="card flex flex-col items-center">
+                        <div className="card-header ">
+                            <img src={Kelola} alt="" className="w-12 h-12" />
+                        </div>
                         <p>Kelola</p>
                     </div>
-                </div>
-            </Link>
-            <Link to={'/select'}>
-                <div className="card">
-                    <div className="card-header w-9 h-9 rounded-ful">
-                        <img src={Home} alt="" />
-                    </div>
-                    <div className="card-footer flex justify-center">
+                </Link>
+                <Link to={'/select'}>
+                    <div className="card flex flex-col items-center">
+                        <div className="card-header">
+                            <img src={Home} alt="" className="w-12 h-12" />
+                        </div>
                         <p>Usaha</p>
                     </div>
-                </div>
-            </Link>
-            <Link to={'/laba'}>
-                <div className="card">
-                    <div className="card-header w-9 h-9 rounded-full bg-gray-400"></div>
-                    <div className="card-footer flex justify-center">
+                </Link>
+                <Link to={'/laba'}>
+                    <div className="card flex flex-col items-center">
+                        <div className="card-header">
+                            <div className="card-header w-12 h-12 rounded-full bg-gray-400"></div>
+                        </div>
                         <p>Laba</p>
                     </div>
-                </div>
-            </Link>
+                </Link>
+            </div>
         </div>
+
     )
 }
 
 export default Carousel
-
-// const mystle = {
-//     cardHeader: {
-//         backgroundColor: "slate",
-//         padding: 20
-//     }
-// }

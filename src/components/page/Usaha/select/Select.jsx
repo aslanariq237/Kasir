@@ -53,7 +53,7 @@ const Select = () => {
     }, [])
 
     return (
-        <div className="">
+        <div className="mt-3">
             <div className="cont mb-5 w-full">
                 <p className="text-center">Pilih Produk di Bawah ini</p>
                 <div className="produks flex flex-wrap">
@@ -73,31 +73,35 @@ const Select = () => {
                                     <p>{li.stok}</p>
                                 </div>
                                 <div className="card-footer">
-                                    <Popup trigger={
+                                    <Popup                                         
+                                        trigger={
                                         <button
                                             className="bg-green-400 rounded-lg p-1 w-full"
-                                        >Tambah</button>
+                                        >Tambah</button>                                    
                                     } modal>
                                         <div className="cart">
                                             <p className="text-sm">apakah anda ingin Menambahkan barang ini?</p>
                                             <div className="card mt-2">
-                                                <div className="card-body flex justify-between items-center">
-                                                    <form action="">
-                                                        <p className="text-xs">{li.nama}</p>
-                                                        <input
-                                                            type="hidden"
-                                                            name="_id"                                                            
-                                                            value={rowSelect && rowSelect._id ? rowSelect._id : li._id}
-                                                            onChange={handleChange}
-                                                        />
-                                                        <input
-                                                            className="h-8 w-20 border-1 border-black"
-                                                            name="qty"
-                                                            type="number"
-                                                            inputMode="numeric"
-                                                            value={rowSelect && rowSelect.qty ? rowSelect.qty : ''}
-                                                            onChange={handleChange}
-                                                        />
+                                                <div className="card-body">
+                                                    <form className="flex flex-col justify-center items-center" onSubmit={addCart}>
+                                                        <div className="p">
+                                                            <input
+                                                                type="hidden"
+                                                                name="_id"
+                                                                value={rowSelect && rowSelect._id ? li._id : li._id}
+                                                                onChange={handleChange}
+                                                            />
+                                                            <div className="input-qty flex justify-between items-center">
+                                                                <p className="text-xs">{li.nama}</p>
+                                                                <input
+                                                                    className="h-8 w-20 shadow-md rounded-md"
+                                                                    name="qty"
+                                                                    type="number"
+                                                                    value={rowSelect && rowSelect.qty ? rowSelect.qty : ''}
+                                                                    onChange={handleChange}
+                                                                />
+                                                            </div>
+                                                        </div>
                                                         <button type="submit">Submit</button>
                                                     </form>
                                                 </div>
@@ -110,9 +114,9 @@ const Select = () => {
                     }
                 </div>
             </div>
-            <button className="fixed bottom-1 bg-blue-400 w-80 px-5 rounded-md">
+            {/* <button className="fixed bottom-1 bg-blue-400 w-80 px-5 rounded-md">
                 <p>Lihat Cart</p>
-            </button>
+            </button> */}
         </div>
     )
 }

@@ -7,21 +7,21 @@ import Footer from "../../template/footer";
 
 function Main() {
     return (
-        <div className="px-4 py-4">
-            <div className="header">
-                <div className="navbar w-100">
-                    <Navbar />
+        <div className="dashboard mx-2">
+            <div className="nav">
+                <Navbar/>
+            </div>
+            <div className="body lg:flex">
+                <div className="Cat lg:w-24">
+                    <Index/>
                 </div>
-            </div>            
-            <div className="body">
-                <div className="card my-3">
-                    <Index />
-                </div>
-                <div className="card my-3">
-                    <Card />
-                </div>
-                <div className="transaction">
-                    <Transaction />
+                <div className="main w-full lg:ml-2">
+                    <div className="card w">
+                        <Card/>
+                    </div>                    
+                    <div className="transaction">
+                        <Transaction/>
+                    </div>
                 </div>
             </div>
         </div>
