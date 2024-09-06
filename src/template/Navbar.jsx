@@ -1,5 +1,6 @@
 import React from "react";
 import Factory from "./../assets/factory.jpg"
+import { Link } from "react-router-dom";
 import Control from "./../assets/control.png"
 
 const Navbar = () => {
@@ -19,11 +20,13 @@ const Navbar = () => {
                 </div>
             </div>
             <div className="func">
-                <img 
-                    src={Control} 
-                    alt=""
-                    className="w-6"
-                />
+                <Link to={'/cart'}>
+                    <img 
+                        src={Control} 
+                        alt=""
+                        className="w-6"
+                    />
+                </Link>
             </div>
         </div>
     )

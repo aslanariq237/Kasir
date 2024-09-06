@@ -6,9 +6,9 @@ const Transaction = () => {
         <React.Fragment>
             <div className="contet">
                 <div className="r1 flex justify-between items-center py-2">
-                    <p className="lg:text-lg">Transaksi Hari ini</p>
+                    <p className="">Transaksi Hari ini</p>
                     <Link to={'/laporan'}>
-                        <p className="text-md text-blue-400">Lihat Laporan</p>
+                        <p className="text-sm text-blue-400">Lihat Laporan</p>
                     </Link>
                 </div>
                 <div className="stat border-t-2 py-2">
@@ -31,10 +31,7 @@ const Transaction = () => {
                             </div>
                             <p className="text-gray-500">Kemarin</p>
                         </div>
-                    </div>
-                    <div className="chart">
-                        <p>Berhasiol</p>
-                    </div>
+                    </div>                    
                 </div>
                 {/* <div className="r2 flex justify-between my-3 items-center">
                     <div className="hrga1">

@@ -9,7 +9,8 @@ import Laporan from "./components/Laporan";
 import {
     Produk, AddProduk,
     AddPelanggan, Pelanggan,
-    Select, Laba
+    Select, Laba,
+    Cart
 } from "./components/page";
 
 
@@ -25,6 +26,7 @@ const Rute = () => {
                 <Route path="/pelanggan" element={<Pelanggan/>}/>
                 <Route path="/select" element={<Select/>}/>
                 <Route path="/laba" element={<Laba/>}/>
+                <Route path="/cart" element={<Cart/>}/>
             </Routes>
         </BrowserRouter>
     )

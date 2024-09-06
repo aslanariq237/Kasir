@@ -1,11 +1,11 @@
 import React from "react";
-import Produk from "./Produk";
-import { Link } from "react-router-dom";
+import Cart from "./Cart";
 import Navbar from "../../../../template/Navbar";
 import Carousel from "../../../dasboard/Carousel/Carousel";
+import { Link } from "react-router-dom";
 
 function Index() {
-    return (
+    return(
         <div className="Carousel">
             <div className="nav">
                 <Navbar />
@@ -15,7 +15,7 @@ function Index() {
                     <Carousel />
                 </div>
                 <div className="detail w-full px-5">
-                    <div className="main w-full">
+                <div className="main w-full">
                         <div className="card px-4 py-4">
                             <div className="nav flex justify-between items-center">
                                 <Link to={'/'}>
@@ -24,7 +24,7 @@ function Index() {
                                 <p className="text-gray-500">Dashboard / Produk</p>
                             </div>
                             <div className="body">
-                                <Produk />
+                                <Cart />
                             </div>
                         </div>
                     </div>

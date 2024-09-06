@@ -2,38 +2,47 @@
 import React, { useContext, useEffect } from 'react';
 import axios from 'axios';
 import CupHolder from "./../../../../assets/cup-holder.jpeg"
-import { item, pelanggan } from '../../../../url';
+import { findItems } from '../../../../url';
 
 const Cart = () => {
   const [cart, setCart] = React.useState([]);
 
-  const getCart = async () => {
-    axios.get(item)
+  const getItems = async () => {
+    await axios.get(findItems)
       .then((res) => {
-        const data = res.data
+        let data = res.data
         setCart(data)
-      }).catch(e => console.log(e))
+      }).catch(err => console.log(err.message))
   }
 
   useEffect(() => {
-    getCart()
+    getItems()
   }, [])
   return (
-    <div className='bg-transparent'>
+    <div className='bg-transparent py-4'>
       {
         cart.length === 0
           ?
-          <div className="null bg-transparent"></div>
+          <div className="null bg-transparent">
+            <p>Keranjang Anda Kosong</p>
+          </div>
           :
-          <div className='fixed bottom-0 w-full bg-green-500 p-3 rounded-tr-3xl rounded-tl-3xl'>
-            {cart.map((i, id) => (
-              <button className="w-full" key={id}>
-                <div className="nam flex justify-between">                  
-                  <p>Bayar Satu Barang</p>
-                  <p>{cart.length}</p>
+          <div className="container flex space-x-3">
+            {
+              cart.map((i, id) => (
+                <div className="carts" key={id}>
+                  <div className="card border-2 rounded-lg p-2">
+                    <div className="card-header py-2">
+                      <p>{i.id_product.nama}</p>
+                    </div>
+                    <div className="card-body flex justify-between border-t-2">
+                      <p>{i.id_product.harga}</p>
+                      <p>{i.qty}</p>
+                    </div>
+                  </div>
                 </div>
-              </button>
-            ))}
+              ))
+            }
           </div>
       }
     </div>
