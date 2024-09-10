@@ -2,58 +2,68 @@ import React, { useContext, useEffect, useState } from "react";
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 import axios from "axios";
-import { postCart, product } from "../../../../url";
+import { product, postCart, findItems } from "../../../../url";
+import { Link } from "react-router-dom";
+import Control from "../../../../assets/cup-holder.jpeg"
+import { Cart } from "../..";
 
 const Select = () => {
     const [item, setItem] = useState([]);
-    const [rowSelect, setRowSelect] = useState([])
+    const [count, setCount] = React.useState([]);
+    // const [rowSelect, setRowSelect] = useState([])  
 
     const getItems = async () => {
-        const itemData = axios.get(product)
+        axios.get(product)
             .then((res) => {
                 const data = res.data
-                // console.log(data);
                 setItem(data)
             })
     }
+
+    const findItems = async () => {
+        await axios.get(findItems)
+            .then((res) => {
+                let data = res.data
+                setCount(data)
+            }).catch(err => console.log(err.message))
+    }
+
+
     const addCart = async (e) => {
         e.preventDefault()
-        console.log(rowSelect)
-        if (!rowSelect.id_product || !rowSelect.qty) {
-            console.log('ID product or qty are not available')
-            return;
-        }       
+        const elements = e.target.elements
 
-        // try{
-        //     await axios.post(postCart, {
-        //         id_product: rowSelect._id,
-        //         qty: rowSelect.qty
-        //     })
-        //         .then(function (e) {
-        //             console.log('Berhasil Menambahkan Data')
-        //             console.log(e)
-        //         }).catch((er) => console.log(er))
-        // }catch(e) {
-        //     console.log({errorMessage : e})
-        // }
+        console.log(elements.id_product.value)
+
+        try {
+            await axios.post(postCart, {
+                id_product: elements.id_product.value,
+                qty: elements.qty.value
+            })
+                .then(function (e) {
+                    console.log('Berhasil Menambahkan Data')
+                }).catch((er) => console.log(er))
+        } catch (e) {
+            console.log({ errorMessage: e })
+        }
     }
 
     const handleChange = (e) => {
         setRowSelect({
-            ...rowSelect,
             [e.target.name]: e.target.value
         })
     }
 
     useEffect(() => {
-        getItems();        
+        getItems();
+        findItems()
     }, [])
 
     return (
-        <div className="mt-3">
+        <div className="my-5">
             <div className="cont mb-5 w-full">
                 <p className="text-center">Pilih Produk di Bawah ini</p>
-                <div className="produks flex flex-wrap justify-center">
+                <div className="produks flex flex-wrap justify-between">
                     {item.length === 0
                         ?
                         <div className="container">
@@ -61,20 +71,18 @@ const Select = () => {
                         </div>
                         :
                         item.map((li, i) => (
-                            <div className="card p-2 rounded-md shadow-xl w-40" key={i}>
-                                <div className="card-header">
-                                    <p className="font-semibold">{li.nama}</p>
-                                </div>
-                                <div className="card-body flex justify-between">
-                                    <p>$.{li.harga}</p>
-                                    <p>{li.stok}</p>
-                                </div>
+                            <div className="card p-2 rounded-md shadow-xl w-24 lg:w-44" key={i}>
                                 <div className="card-footer">
                                     <Popup
                                         trigger={
-                                            <button
-                                                className="bg-green-400 rounded-lg p-1 w-full"
-                                            >Tambah</button>
+                                            <div className="">
+                                                <div className="card-header">
+                                                    <img className="rounded-lg" src={Control} alt="" />
+                                                </div>
+                                                <div className="card-body flex justify-center">
+                                                    <p className="font-bold text-xs text-center">{li.nama}</p>
+                                                </div>
+                                            </div>
                                         } modal>
                                         <div className="cart lg:flex lg:flex-col items-center">
                                             <p className="text-sm">apakah anda ingin Menambahkan barang ini?</p>
@@ -83,13 +91,10 @@ const Select = () => {
                                                     <div className="input">
                                                         <div className="id">
                                                             <input
-                                                                type="hidden"
                                                                 name="id_product"
-                                                                value={
-                                                                    // !rowSelect || rowSelect.id_product ? rowSelect.id_product = li._id : '' 
-                                                                    rowSelect._id =  li._id
-                                                                }
-                                                                // onChange={handleChange}
+                                                                className="text-xs"
+                                                                type="hidden"
+                                                                value={li._id}
                                                             />
                                                         </div>
                                                         <div className="qty flex justify-between">
@@ -98,8 +103,8 @@ const Select = () => {
                                                                 className="shadow-md rounded-md w-full"
                                                                 name="qty"
                                                                 type="number"
-                                                                value={rowSelect && rowSelect.qty ? rowSelect.qty : ''}
-                                                                onChange={handleChange}
+                                                                // value={rowSelect && rowSelect.qty ? rowSelect.qty : ''}                                                                
+                                                                min={1}
                                                             />
                                                         </div>
                                                     </div>
@@ -114,6 +119,22 @@ const Select = () => {
                     }
                 </div>
             </div>
+            {
+                count.length == undefined
+                    ?
+                    <div className="">
+                        <p>kosong</p>
+                    </div>
+                    :
+                    <Link to={'/cart'}>
+                        <div className="button flex justify-center items-center">
+                            <button className="bg-blue-500 fixed bottom-1 rounded-full h-10 lg:h-16  w-72 flex justify-between items-center px-4">
+                                <p>Bayar</p>
+                                <p>Rp. 20.000</p>
+                            </button>
+                        </div>
+                    </Link>
+            }
         </div>
     )
 }

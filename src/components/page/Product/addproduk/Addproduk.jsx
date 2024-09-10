@@ -17,6 +17,7 @@ const AddProduk = () => {
             saiz: rowSelect.saiz,
             harga: rowSelect.harga,
             stok: rowSelect.stok
+            
         })
         .then(function () {
             console.log("Data Berhasil Terkirim")
