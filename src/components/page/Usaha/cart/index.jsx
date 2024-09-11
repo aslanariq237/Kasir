@@ -17,7 +17,7 @@ function Index() {
                                 </Link>
                                 <p className="text-gray-500">Payment</p>
                             </div>
-                            <div className="body">
+                            <div className="body lg:flex lg:justify-center">
                                 <Cart />
                             </div>
                         </div>
