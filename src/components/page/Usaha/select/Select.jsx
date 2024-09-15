@@ -9,8 +9,7 @@ import { Cart } from "../..";
 
 const Select = () => {
     const [item, setItem] = useState([]);
-    const [count, setCount] = React.useState([]);
-    // const [rowSelect, setRowSelect] = useState([])  
+    const [count, setCount] = React.useState([]); 
 
     const getItems = async () => {
         axios.get(product)
@@ -33,8 +32,6 @@ const Select = () => {
         e.preventDefault()
         const elements = e.target.elements
 
-        console.log(elements.id_product.value)
-
         try {
             await axios.post(postCart, {
                 id_product: elements.id_product.value,
@@ -46,12 +43,6 @@ const Select = () => {
         } catch (e) {
             console.log({ errorMessage: e })
         }
-    }
-
-    const handleChange = (e) => {
-        setRowSelect({
-            [e.target.name]: e.target.value
-        })
     }
 
     useEffect(() => {
