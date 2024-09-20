@@ -30,15 +30,15 @@ const Cart = () => {
       status_payment: elements.metode_payment.value == 'cash'? 'Belum di Bayar':'Sudah Lunas'
     }
 
+    console.log(e)
     console.log(data)
     // try{
     //   await axios.post(postPay, {
+    //     nama: elements.nama.value,
     //     id_cart : elements.id_cart.value,
-    //     id_pelanggan : elements.id_pelanggan.value,
-    //     nama : elements.nama.value,
     //     total: total,
     //     metode_payment : elements.metode_payment.value,
-    //     status_payment: metode_payment == cash? 'Sudah Lunas':'Belum Di Bayar'       
+    //     status_payment: elements.metode_payment.value == 'cash'? 'Belum di Bayar':'Sudah Lunas'     
     //   })
     //     .then(function(e) {
     //       console.log('Berhasil Menyimpan Data')
@@ -75,9 +75,9 @@ const Cart = () => {
                         type="hidden" 
                         name='id_cart' 
                         className='text-xs' 
-                        value={li._id}
+                        value={li}
                       />
-                      <p>{li._id}</p>
+                      {/* <p>{li._id}</p> */}
                       <div className="card-header flex justify-between border-b-2 py-2 items-center">
                         <div className="title">
                           <p>{li.id_product.nama}</p>
