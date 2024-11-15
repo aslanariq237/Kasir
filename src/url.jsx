@@ -1,4 +1,4 @@
-const url = "http://localhost:8000/api"
+const url = "http://localhost:8000/api/"
 const url_lang = "https://kasir-mongo.vercel.app/api/"
 
 //get
