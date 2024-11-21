@@ -7,7 +7,7 @@ const Navbar = () => {
     return (
         <div className="Navbar flex justify-between items-center px-3 py-3 border-b-2 rounded-md">
             <div className="Company flex items-center space-x-2">
-                <div className="image border-2 border-blue-400 rounded-full">
+                <div className="image border-blue-400 border-2 rounded-full">
                     <img
                         src={Factory}
                         alt="logo-umkm"
@@ -16,7 +16,7 @@ const Navbar = () => {
                 </div>
                 <div className="text">
                     <p className="font-semibold text-sm lg:text-lg">Bright</p>
-                    <p className="text-gray-500 text-sm">Company</p>
+                    <p className=" text-sm">Company</p>
                 </div>
             </div>
             <div className="func">

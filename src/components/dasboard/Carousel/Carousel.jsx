@@ -1,7 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
 import Kelola from "./../../../assets/kelola.png"
 import Home from "./../../../assets/home.jpg"
+import Laba from "./../../../assets/laba.png"
 
 const Carousel = () => {
     return (
@@ -23,14 +26,20 @@ const Carousel = () => {
                         <p>Usaha</p>
                     </div>
                 </Link>
-                <Link to={'/laba'}>
-                    <div className="card flex flex-col items-center">
-                        <div className="card-header">
-                            <div className="card-header w-12 h-12 rounded-full bg-gray-400"></div>
+                <Popup
+                    trigger={open => (
+                        <div className="card flex flex-col items-center">
+                            <div className="card-header">
+                                <img src={Laba} className="w-12 h-12" alt="" />
+                            </div>
+                            <p>Laba</p>
                         </div>
-                        <p>Laba</p>
-                    </div>
-                </Link>
+                    )}
+                    position="bottom center"
+                    closeOnDocumentClick
+                >
+                    <span>On Progress</span>
+                </Popup>
             </div>
         </div>
 

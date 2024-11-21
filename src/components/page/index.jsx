@@ -5,3 +5,4 @@ export {default as AddPelanggan} from './pelanggan/addpelanggan'
 export {default as Select} from './Usaha/select/'
 export {default as Cart} from './Usaha/cart'
 export {default as Laba} from "./laba"
+export {default as Detail} from "./Detail"

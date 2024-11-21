@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { product } from "../../../../url";
+import { product, url_image } from "../../../../url";
 
 const Produk = () => {
 
@@ -32,13 +32,15 @@ const Produk = () => {
                     :
                     item.map((li, i) => (
                         <div className="card p-2 rounded-md shadow-xl" key={i}>
-                            <div className="card-header flex justify-between">
-                                <p>{li.nama}</p>
-                                <p>{li.warna}</p>
-                            </div>
-                            <div className="card-footer flex justify-between">
-                                <p>$.{li.harga}</p>
-                                <p>{li.stok}</p>
+                            <div className="flex justify-start space-x-4">
+                                <img src={url_image + li.file} alt="" className="rounded-md" width={80}/>
+                                <div className="title w-full">
+                                    <p className="font-semibold">{li.nama}</p>
+                                    <div className="r1 flex justify-between items-baseline">
+                                        <p className="text-gray-600">{li.stok}</p>
+                                        <p className="text-gray-700">Rp. {li.harga}</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     ))

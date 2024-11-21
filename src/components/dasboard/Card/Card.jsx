@@ -1,12 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Menu from "./../../../assets/menu.png"
 
 const Card = () => {
     return (
         <div className="Main py-3">
             <div className="menu flex justify-between items-center bg-blue-300 p-2 rounded-md">
                 <div className="func flex items-center space-x-3">
-                    <div className="circle w-12 h-12 rounded-full bg-gray-400"></div>
+                    <img src={Menu} alt="" width={50} />
                     <div className="text">
                         <p className="text-semibold">Menu Online</p>
                         <p className="text-gray-600 text-sm">Atur, Unduh dan Bagikan Menu mu</p>

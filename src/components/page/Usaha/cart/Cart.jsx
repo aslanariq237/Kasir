@@ -1,52 +1,57 @@
 // src/components/Cart.js
 import React, { useContext, useEffect } from 'react';
 import axios from 'axios';
-import CupHolder from "./../../../../assets/cup-holder.jpeg"
-import { findItems, postPay } from '../../../../url';
+import { deleteCarts, findItems, postPay } from '../../../../url';
+import { useNavigate } from 'react-router-dom';
 
 const Cart = () => {
   const [cart, setCart] = React.useState([]);
+  const [idCart, setIdCart] = React.useState([]);
+  const navigate = useNavigate();
 
   const getItems = async () => {
     await axios.get(findItems)
       .then((res) => {
         let data = res.data
-        setCart(data)
+        setCart(data)        
       }).catch(err => console.log(err.message))
   }
 
   const total = cart.reduce((total, cart) => {
-    return total + cart.id_product.harga
+    const x = cart.id_product.harga * cart.qty    
+    return total + x    
   }, 0)
+
+  const deleteCart = async() => {
+    await axios.delete(deleteCarts)
+    .then((res) => {
+      console.log(res)
+    }).catch(err => console.log(err))
+  }
 
   const createPayment = async(e, cart) => {
     e.preventDefault()
     const elements = e.target.elements
-    const data = {
-      nama: elements.nama.value,
-      id_cart : elements.id_cart.value,
-      total: total,
-      metode_payment : elements.metode_payment.value,
-      status_payment: elements.metode_payment.value == 'cash'? 'Belum di Bayar':'Sudah Lunas'
-    }
+    // const CartId = JSON.stringify(elements.id_cart.value)
 
-    console.log(e)
-    console.log(data)
-    // try{
-    //   await axios.post(postPay, {
-    //     nama: elements.nama.value,
-    //     id_cart : elements.id_cart.value,
-    //     total: total,
-    //     metode_payment : elements.metode_payment.value,
-    //     status_payment: elements.metode_payment.value == 'cash'? 'Belum di Bayar':'Sudah Lunas'     
-    //   })
-    //     .then(function(e) {
-    //       console.log('Berhasil Menyimpan Data')
-    //   }) 
-    //     .catch((err) => console.log(err))
-    // }catch(err){
-    //   console.log({errorMessage: err})
-    // }
+    try{
+      await axios.post(postPay, {
+        nama: elements.nama.value,
+        // id_cart : CartId,
+        id_cart : elements.id_cart.value[0],      
+        total: total,
+        metode_payment : elements.metode_payment.value == 0 ? 'cash': 'qris',
+        status_payment: elements.metode_payment.value == 0 ? 'Sudah di bayar':'Belum di bayar'     
+      })
+        .then(function(e) {
+          console.log('Berhasil Menyimpan Data');
+          deleteCart();
+          navigate('/select');
+      }) 
+        .catch((err) => console.log(err))
+    }catch(err){
+      console.log({errorMessage: err})
+    }
   }
 
   useEffect(() => {
@@ -74,20 +79,19 @@ const Cart = () => {
                       <input 
                         type="hidden" 
                         name='id_cart' 
-                        className='text-xs' 
-                        value={li}
-                      />
-                      {/* <p>{li._id}</p> */}
+                        className='text-xs'                         
+                        value={li._id}
+                      />                      
                       <div className="card-header flex justify-between border-b-2 py-2 items-center">
                         <div className="title">
                           <p>{li.id_product.nama}</p>
                         </div>
                         <div className="details">
                           <div className="sub-title">
-                            <p>Rp. {li.id_product.harga}</p>
+                            {/* <p>Rp. {li.id_product.harga}</p> */}
                           </div>                          
                           <div className="qty">
-                            <p className='text-center text-sm'>{li.qty}</p>
+                            <p className='text-center text-sm'>{li.qty}</p>                            
                           </div>
                         </div>
                       </div>
@@ -96,8 +100,8 @@ const Cart = () => {
                   <div className="method">
                     <p className='py-2'>Metode Payment</p>
                     <select name="metode_payment" id="" className='w-full'>
-                      <option value="Cash">Cash</option>
-                      <option value="Qris">Qris</option>
+                      <option value="0">Cash</option>
+                      <option value="1">Qris</option>
                     </select>                  
                   </div>
                   <div className="submit py-2">

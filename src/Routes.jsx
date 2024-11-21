@@ -10,7 +10,7 @@ import {
     Produk, AddProduk,
     AddPelanggan, Pelanggan,
     Select, Laba,
-    Cart
+    Cart, Detail
 } from "./components/page";
 
 
@@ -27,6 +27,7 @@ const Rute = () => {
                 <Route path="/select" element={<Select/>}/>
                 <Route path="/laba" element={<Laba/>}/>
                 <Route path="/cart" element={<Cart/>}/>
+                <Route path="/detail" element={<Detail/>}/>
             </Routes>
         </BrowserRouter>
     )
